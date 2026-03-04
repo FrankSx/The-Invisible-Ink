@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![13th Hour](https://img.shields.io/badge/13th%20Hour-Research-red.svg)]()
 
-> *"In the space between bytes, we find our truth."* — frankSx
+> *"In the space between bytes, we find our truth."* — FrankSx
 
 A comprehensive toolkit for adversarial ML testing using ASCII art and Unicode manipulation techniques. This repository contains tools for generating adversarial inputs that exploit the gap between human visual perception and machine parsing.
 
@@ -100,7 +100,7 @@ MIT License with Ethical Use Addendum - see [LICENSE](LICENSE) for details.
 
 **frankSx** - Security Researcher & CTF Enthusiast
 - 📝 Blog: https://frankhacks.blogspot.com
-- 🐙 GitHub: [your-handle]
+- 🐙 GitHub: [FrankSx]
 
 ---
 
