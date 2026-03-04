@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 FrankSx
+Copyright (c) 2026 frankSx
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+ETHICAL USE ADDENDUM:
+
+This software is intended for security research, educational purposes, and
+authorized testing only. By using this software, you agree to:
+
+1. Only use on systems you own or have explicit permission to test
+2. Follow responsible disclosure practices for any vulnerabilities found
+3. Not use this software to bypass safety measures maliciously
+4. Not use this software to generate harmful content
+5. Comply with all applicable laws and regulations
+
+The authors do not condone illegal or unethical use of these techniques.

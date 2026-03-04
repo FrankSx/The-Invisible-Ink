@@ -1,0 +1,14 @@
+# ASCII Unicode Exploit Kit Requirements
+# Python 3.8+
+
+# Core dependencies (stdlib only for basic functionality)
+# No external dependencies required for basic operation
+
+# Optional dependencies for advanced features
+# unicodedata2>=15.0.0  # More up-to-date Unicode data
+# fonttools>=4.0.0      # Font analysis for homoglyph detection
+
+# Development dependencies
+# pytest>=7.0.0         # Testing framework
+# black>=22.0.0         # Code formatting
+# mypy>=0.950           # Type checking

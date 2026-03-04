@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Unicode Exploit Kit - Web Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff00;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #00ff00;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #00ff00;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .panel {
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .panel h2 {
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 1px solid #004400;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00aa00;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            background: #0a0a0a;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            border-radius: 4px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #00cc00;
+            box-shadow: 0 0 15px #00ff00;
+        }
+
+        .output {
+            margin-top: 15px;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 1px solid #004400;
+            border-radius: 4px;
+            min-height: 60px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .risk-low { color: #00ff00; }
+        .risk-medium { color: #ffff00; }
+        .risk-high { color: #ff0000; }
+
+        .ascii-art {
+            font-size: 0.9em;
+            line-height: 1.2;
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            color: #ff6666;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid #00ff00;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .glitch {
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 10px #00ff00; }
+            50% { text-shadow: -2px 0 10px #ff0000, 2px 0 10px #0000ff; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px solid #00ff00;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        .signature {
+            font-size: 0.8em;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="glitch">🔤 ASCII UNICODE EXPLOIT KIT</h1>
+            <p class="subtitle">13th Hour Research Division | Adversarial ML Testing Tools</p>
+        </header>
+
+        <div class="warning">
+            <strong>⚠️ ETHICAL USE NOTICE:</strong> These tools are for security research, 
+            adversarial robustness testing, and educational purposes only. Do not use for 
+            malicious purposes or unauthorized system access.
+        </div>
+
+        <div class="grid">
+            <!-- Unicode Generator Panel -->
+            <div class="panel">
+                <h2>🎭 Unicode Generator</h2>
+                <div class="form-group">
+                    <label>Input Text:</label>
+                    <input type="text" id="unicode-input" placeholder="Enter text to transform...">
+                </div>
+                <div class="form-group">
+                    <label>Mode:</label>
+                    <select id="unicode-mode">
+                        <option value="homoglyph">Homoglyph Replace</option>
+                        <option value="zerowidth">Zero-Width Insert</option>
+                        <option value="bidi">Bidi Override</option>
+                        <option value="confusable">Max Confusion</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Intensity (0.0 - 1.0):</label>
+                    <input type="number" id="unicode-intensity" min="0" max="1" step="0.1" value="0.5">
+                </div>
+                <button onclick="generateUnicode()">Generate</button>
+                <div class="output" id="unicode-output"></div>
+            </div>
+
+            <!-- ASCII Obfuscator Panel -->
+            <div class="panel">
+                <h2>🎨 ASCII Obfuscator</h2>
+                <div class="form-group">
+                    <label>Payload:</label>
+                    <input type="text" id="ascii-input" placeholder="Enter payload...">
+                </div>
+                <div class="form-group">
+                    <label>Mode:</label>
+                    <select id="ascii-mode">
+                        <option value="box">Box</option>
+                        <option value="banner">Banner</option>
+                        <option value="matrix">Matrix Rain</option>
+                        <option value="glitch">Glitch Text</option>
+                        <option value="zalgo">Zalgo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Style:</label>
+                    <select id="ascii-style">
+                        <option value="single">Single Line</option>
+                        <option value="double">Double Line</option>
+                        <option value="round">Rounded</option>
+                        <option value="bold">Bold</option>
+                    </select>
+                </div>
+                <button onclick="generateASCII()">Generate</button>
+                <div class="output ascii-art" id="ascii-output"></div>
+            </div>
+
+            <!-- String Mixer Panel -->
+            <div class="panel">
+                <h2>🔀 String Mixer</h2>
+                <div class="form-group">
+                    <label>Input:</label>
+                    <input type="text" id="mixer-input" placeholder="Enter string to mix...">
+                </div>
+                <div class="form-group">
+                    <label>Layers:</label>
+                    <input type="number" id="mixer-layers" min="1" max="5" value="3">
+                </div>
+                <div class="form-group">
+                    <label>Techniques (comma-separated):</label>
+                    <input type="text" id="mixer-techs" placeholder="base64,rot13,hex (or leave empty for random)">
+                </div>
+                <button onclick="mixString()">Mix</button>
+                <div class="output" id="mixer-output"></div>
+            </div>
+
+            <!-- Analyzer Panel -->
+            <div class="panel">
+                <h2>🔍 Unicode Analyzer</h2>
+                <div class="form-group">
+                    <label>Text to Analyze:</label>
+                    <textarea id="analyzer-input" placeholder="Paste suspicious text here..."></textarea>
+                </div>
+                <button onclick="analyzeText()">Analyze</button>
+                <div class="output" id="analyzer-output"></div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📚 Quick Reference</h3>
+            <ul>
+                <li><strong>Homoglyphs:</strong> Characters that look identical but have different code points (e.g., Latin 'a' vs Cyrillic 'а')</li>
+                <li><strong>Bidi Overrides:</strong> Control text direction (U+202E Right-to-Left Override)</li>
+                <li><strong>Zero-Width:</strong> Invisible characters (U+200B Zero Width Space)</li>
+                <li><strong>Zalgo:</strong> Combining characters that stack above/below text</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>ASCII Unicode Exploit Kit v1.0</p>
+            <p class="signature">
+                13th Hour Research Division | frankSx<br>
+                For research and educational purposes only
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Homoglyph mapping
+        const homoglyphs = {
+            'a': ['а', 'α', 'а'], 'e': ['е', 'ε', 'е'],
+            'o': ['о', 'ο', 'о'], 'p': ['р', 'ρ', 'р'],
+            'x': ['х', 'χ', 'х'], 'c': ['с', 'с'],
+            'y': ['у', 'γ'], 'i': ['і', 'ι'],
+            'j': ['ј', 'ϳ'], 'k': ['к', 'κ']
+        };
+
+        function generateUnicode() {
+            const input = document.getElementById('unicode-input').value;
+            const mode = document.getElementById('unicode-mode').value;
+            const intensity = parseFloat(document.getElementById('unicode-intensity').value);
+
+            let result = input;
+
+            switch(mode) {
+                case 'homoglyph':
+                    result = input.split('').map(c => {
+                        if (homoglyphs[c] && Math.random() < intensity) {
+                            return homoglyphs[c][Math.floor(Math.random() * homoglyphs[c].length)];
+                        }
+                        return c;
+                    }).join('');
+                    break;
+
+                case 'zerowidth':
+                    const zw = '\u200B';
+                    result = input.split('').join(zw);
+                    break;
+
+                case 'bidi':
+                    const rlo = '\u202E';
+                    const pdf = '\u202C';
+                    result = rlo + input + pdf;
+                    break;
+
+                case 'confusable':
+                    result = input.split('').map(c => {
+                        if (homoglyphs[c] && Math.random() < 0.7) {
+                            return homoglyphs[c][Math.floor(Math.random() * homoglyphs[c].length)];
+                        }
+                        return c;
+                    }).join('');
+                    result = result.split('').join('\u200B');
+                    break;
+            }
+
+            document.getElementById('unicode-output').textContent = result;
+        }
+
+        function generateASCII() {
+            const input = document.getElementById('ascii-input').value;
+            const mode = document.getElementById('ascii-mode').value;
+            const style = document.getElementById('ascii-style').value;
+
+            let result = '';
+
+            switch(mode) {
+                case 'box':
+                    const chars = {
+                        single: {tl: '┌', tr: '┐', bl: '└', br: '┘', h: '─', v: '│'},
+                        double: {tl: '╔', tr: '╗', bl: '╚', br: '╝', h: '═', v: '║'},
+                        round: {tl: '╭', tr: '╮', bl: '╰', br: '╯', h: '─', v: '│'},
+                        bold: {tl: '┏', tr: '┓', bl: '┗', br: '┛', h: '━', v: '┃'}
+                    };
+                    const c = chars[style];
+                    const width = input.length + 2;
+                    result = c.tl + c.h.repeat(width) + c.tr + '\n' +
+                             c.v + ' ' + input + ' ' + c.v + '\n' +
+                             c.bl + c.h.repeat(width) + c.br;
+                    break;
+
+                case 'banner':
+                    result = '╔' + '═'.repeat(input.length + 4) + '╗\n' +
+                             '║  ' + input.toUpperCase() + '  ║\n' +
+                             '╚' + '═'.repeat(input.length + 4) + '╝';
+                    break;
+
+                case 'matrix':
+                    const katakana = Array.from({length: 63}, (_, i) => String.fromCharCode(0xFF66 + i));
+                    result = Array(5).fill(0).map(() => 
+                        Array(20).fill(0).map(() => 
+                            Math.random() > 0.5 ? katakana[Math.floor(Math.random() * katakana.length)] : ' '
+                        ).join('')
+                    ).join('\n');
+                    break;
+
+                case 'glitch':
+                    const glitch = ['̷', '̸', '̶', '̵', '̴'];
+                    result = input.split('').map(c => 
+                        c + (Math.random() > 0.5 ? glitch[Math.floor(Math.random() * glitch.length)] : '')
+                    ).join('');
+                    break;
+
+                case 'zalgo':
+                    const zalgo = ['\u0300', '\u0301', '\u0302', '\u0303', '\u0304'];
+                    result = input.split('').map(c => 
+                        c + Array(Math.floor(Math.random() * 3)).fill(0).map(() => 
+                            zalgo[Math.floor(Math.random() * zalgo.length)]
+                        ).join('')
+                    ).join('');
+                    break;
+            }
+
+            document.getElementById('ascii-output').textContent = result;
+        }
+
+        function mixString() {
+            const input = document.getElementById('mixer-input').value;
+            const layers = parseInt(document.getElementById('mixer-layers').value);
+            const techsInput = document.getElementById('mixer-techs').value;
+
+            let result = input;
+            const techniques = techsInput ? techsInput.split(',') : ['base64', 'hex', 'reverse'];
+
+            for (let i = 0; i < layers; i++) {
+                const tech = techniques[i % techniques.length].trim();
+                switch(tech) {
+                    case 'base64':
+                        result = btoa(result);
+                        break;
+                    case 'hex':
+                        result = result.split('').map(c => c.charCodeAt(0).toString(16)).join('');
+                        break;
+                    case 'reverse':
+                        result = result.split('').reverse().join('');
+                        break;
+                    case 'rot13':
+                        result = result.replace(/[a-zA-Z]/g, function(c) {
+                            return String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+                        });
+                        break;
+                }
+            }
+
+            document.getElementById('mixer-output').textContent = 
+                `Techniques: ${techniques.slice(0, layers).join(' → ')}\n\n${result}`;
+        }
+
+        function analyzeText() {
+            const input = document.getElementById('analyzer-input').value;
+
+            // Simple analysis
+            const suspicious = [];
+            let riskScore = 0;
+
+            // Check for bidi
+            if (/[\u202A-\u202E]/.test(input)) {
+                suspicious.push('Bidirectional control characters detected');
+                riskScore += 30;
+            }
+
+            // Check for zero-width
+            if (/[\u200B-\u200F]/.test(input)) {
+                suspicious.push('Zero-width characters detected');
+                riskScore += 20;
+            }
+
+            // Check for high Unicode
+            const highUnicode = input.split('').filter(c => c.charCodeAt(0) > 1000).length;
+            if (highUnicode > 0) {
+                suspicious.push(`${highUnicode} non-ASCII characters found`);
+                riskScore += highUnicode * 5;
+            }
+
+            riskScore = Math.min(riskScore, 100);
+
+            const riskClass = riskScore < 30 ? 'risk-low' : riskScore < 70 ? 'risk-medium' : 'risk-high';
+            const riskText = riskScore < 30 ? 'LOW' : riskScore < 70 ? 'MEDIUM' : 'HIGH';
+
+            let output = `Risk Score: <span class="${riskClass}">${riskScore}/100 (${riskText})</span>\n\n`;
+
+            if (suspicious.length > 0) {
+                output += 'Findings:\n' + suspicious.map(s => '• ' + s).join('\n');
+            } else {
+                output += 'No obvious Unicode attacks detected.';
+            }
+
+            output += `\n\nCharacter Stats:
+`;
+            output += `• Total length: ${input.length}\n`;
+            output += `• Byte size: ${new Blob([input]).size}\n`;
+            output += `• Unique chars: ${new Set(input).size}`;
+
+            document.getElementById('analyzer-output').innerHTML = output;
+        }
+    </script>
+</body>
+</html>
