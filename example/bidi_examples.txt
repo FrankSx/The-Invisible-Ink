@@ -1,0 +1,12 @@
+# Bidirectional Text Override Examples
+# These demonstrate how text direction can be manipulated
+
+Normal: Hello World
+RTL Override: Hello ‮dlroW‭
+
+File name spoofing:
+Visual:  evil.exe
+Actual:  evil‮exe.exe‭
+
+Path traversal with Bidi:
+/safe/path/‮../etc/passwd‭/file.txt

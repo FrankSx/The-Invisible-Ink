@@ -1,0 +1,13 @@
+# Homoglyph Attack Examples
+# These strings look identical but have different byte representations
+
+Original: password
+Cyrillic: pаsswоrd  (а = U+0430, о = U+043E)
+Greek:    pαsswοrd  (α = U+03B1, ο = U+03BF)
+
+Original: admin
+Cyrillic: аdmin     (а = U+0430)
+Greek:    αdmin     (α = U+03B1)
+
+Original: google.com
+Cyrillic: gооgle.com (о = U+043E)
